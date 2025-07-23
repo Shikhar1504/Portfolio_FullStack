@@ -137,9 +137,13 @@ export const Navbar = () => {
           className="flex items-center text-xl font-bold cursor-pointer text-primary"
           onClick={() => handleNavClick("#hero")}
         >
+          <img
+            src="./ss.png"
+            alt="Logo"
+            className="fixed top-0 left-0 mt-0 mr-0 lg:fixed lg:top-auto lg:left-auto w-18 h-18 lg:mt-4 lg:mr-12 lg:w-25 lg:h-25"
+          />
           <span className="relative z-10">
-            <span className="text-glow text-foreground"> PedroTech </span>{" "}
-            Portfolio
+            {/* <span className="text-glow text-foreground"> </span> Portfolio */}
           </span>
         </div>
 
