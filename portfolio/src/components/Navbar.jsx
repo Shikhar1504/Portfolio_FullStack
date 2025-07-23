@@ -138,7 +138,7 @@ export const Navbar = () => {
           onClick={() => handleNavClick("#hero")}
         >
           <img
-            src="./ss.png"
+            src="/ss.png"
             alt="Logo"
             className="fixed top-0 left-0 mt-0 mr-0 lg:fixed lg:top-auto lg:left-auto w-18 h-18 lg:mt-4 lg:mr-12 lg:w-25 lg:h-25"
           />
