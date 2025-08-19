@@ -1,18 +1,19 @@
+import { Button } from "@/components/ui/button";
 import {
   addNewSkill,
   clearAllSkillErrors,
   getAllSkills,
   resetSkillSlice,
 } from "@/store/slices/skillSlice";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { Button } from "@/components/ui/button";
 import SpecialLoadingButton from "./SpecialLoadingButton";
 
 const AddSkill = () => {
   const [title, setTitle] = useState("");
   const [proficiency, setProficiency] = useState("");
+  const [type, setType] = useState("tools");
   const [svg, setSvg] = useState("");
   const [svgPreview, setSvgPreview] = useState("");
 
@@ -32,6 +33,7 @@ const AddSkill = () => {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("proficiency", proficiency);
+    formData.append("type", type);
     formData.append("svg", svg);
     dispatch(addNewSkill(formData));
   };
@@ -93,11 +95,28 @@ const AddSkill = () => {
                     </div>
                   </div>
                 </div>
+                <div className="w-full sm:col-span-4">
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
+                    Type
+                  </label>
+                  <div className="mt-2">
+                    <select
+                      className="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      value={type}
+                      onChange={(e) => setType(e.target.value)}
+                    >
+                      <option value="frontend">Frontend</option>
+                      <option value="backend">Backend</option>
+                      <option value="languages">Languages</option>
+                      <option value="databases">Databases</option>
+                      <option value="ai">AI</option>
+                      <option value="tools">Tools</option>
+                    </select>
+                  </div>
+                </div>
 
                 <div className="w-full col-span-full">
-                  <label
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
                     Skill Svg
                   </label>
                   <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
@@ -159,7 +178,7 @@ const AddSkill = () => {
                 Add Skill
               </Button>
             ) : (
-               <SpecialLoadingButton content={"Adding New Skill"} />
+              <SpecialLoadingButton content={"Adding New Skill"} />
             )}
           </div>
         </form>

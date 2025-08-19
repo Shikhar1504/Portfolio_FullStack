@@ -7,6 +7,11 @@ const skillSchema = new mongoose.Schema({
   proficiency: {
     type: Number,
   },
+  type: {
+    type: String,
+    enum: ["frontend", "backend", "languages", "databases", "ai", "tools"],
+    default: "tools",
+  },
   svg: {
     public_id: {
       type: String,

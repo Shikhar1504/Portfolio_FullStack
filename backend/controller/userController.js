@@ -72,6 +72,7 @@ export const register = catchAsyncErrors(async (req, res, next) => {
     phone,
     skills,
     aboutMe,
+    aboutCards,
     password,
     portfolioURL,
     githubURL,
@@ -91,6 +92,7 @@ export const register = catchAsyncErrors(async (req, res, next) => {
     phone,
     skills: skills.split(",").map((skill) => skill.trim()),
     aboutMe,
+    aboutCards: aboutCards ? JSON.parse(aboutCards) : [],
     password,
     portfolioURL,
     githubURL,
@@ -172,6 +174,15 @@ export const updateProfile = catchAsyncErrors(async (req, res, next) => {
       : [],
 
     aboutMe: req.body.aboutMe,
+    aboutCards: req.body.aboutCards
+      ? (() => {
+          try {
+            return JSON.parse(req.body.aboutCards);
+          } catch (e) {
+            return [];
+          }
+        })()
+      : undefined,
     githubURL: req.body.githubURL,
     instagramURL: req.body.instagramURL,
     portfolioURL: req.body.portfolioURL,

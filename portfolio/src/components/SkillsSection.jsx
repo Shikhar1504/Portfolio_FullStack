@@ -3,34 +3,21 @@ import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-// Category mapping (Option 2)
-const CATEGORY_MAP = {
-  frontend: [
-    "HTML",
-    "CSS",
-    "HTML/CSS",
-    "JavaScript",
-    "React",
-    "Next.js",
-    "Tailwind CSS",
-    "TypeScript",
-  ],
-  backend: ["Node.js", "Express", "MongoDB", "PostgreSQL", "GraphQL"],
-  languages: ["Python", "Java", "C++", "C", "Go", "Rust", "SQL"],
-  tools: ["Git", "GitHub", "Docker", "Figma", "VS Code"],
+// Fallback for skills without type field (backward compatibility)
+const getCategory = (skill) => {
+  // Use the type field if available, otherwise fallback to tools
+  return skill.type || "tools";
 };
 
-const getCategory = (title) => {
-  const lowerTitle = title.toLowerCase();
-  for (const [category, items] of Object.entries(CATEGORY_MAP)) {
-    if (items.some((item) => item.toLowerCase() === lowerTitle)) {
-      return category;
-    }
-  }
-  return "tools"; // fallback
-};
-
-const categories = ["all", "frontend", "backend", "languages", "tools"];
+const categories = [
+  "all",
+  "frontend",
+  "backend",
+  "languages",
+  "databases",
+  "ai",
+  "tools",
+];
 
 export const SkillsSection = () => {
   const [skills, setSkills] = useState([]);
@@ -45,7 +32,7 @@ export const SkillsSection = () => {
 
       const categorizedSkills = data.skills.map((skill) => ({
         ...skill,
-        category: getCategory(skill.title),
+        category: getCategory(skill),
       }));
 
       setSkills(categorizedSkills);

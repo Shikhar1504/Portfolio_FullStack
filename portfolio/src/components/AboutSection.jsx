@@ -42,6 +42,16 @@ const highlightKeywords = (text, keywords) => {
   );
 };
 
+// Render minimal markdown for bold text: use **bold** in dashboard
+const renderBold = (text) => {
+  if (!text) return "";
+  const escaped = text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+  return escaped.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+};
+
 export const AboutSection = () => {
   const [user, setUser] = useState({});
   useEffect(() => {
@@ -56,8 +66,6 @@ export const AboutSection = () => {
   }, []);
 
   const theme = useThemeMode();
-  const iconColor = theme === "dark" ? "white" : "black";
-  const hoverColor = theme === "dark" ? "#9ca3af" : "#6b7280";
 
   const keywordsToBold = [
     "MERN stack",
@@ -176,43 +184,10 @@ export const AboutSection = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="flex flex-col gap-6"
           >
-            {[
-              {
-                icon: <User className="w-6 h-6 text-primary" />,
-                title: "Competitive Programming",
-                desc: (
-                  <>
-                    I actively solve <strong>algorithmic problems</strong> to
-                    enhance my logic and speed. Regular practice on platforms
-                    like <strong>LeetCode</strong> <strong>Codeforces</strong>{" "}
-                    and <strong>Codechef</strong>.
-                  </>
-                ),
-              },
-              {
-                icon: <Code className="w-6 h-6 text-primary" />,
-                title: "MERN Stack Web Development",
-                desc: (
-                  <>
-                    I build robust, scalable{" "}
-                    <strong>full-stack web applications</strong> using the{" "}
-                    <strong>MERN stack</strong>
-                  </>
-                ),
-              },
-              {
-                icon: <Briefcase className="w-6 h-6 text-primary" />,
-                title: "Machine Learning",
-                desc: (
-                  <>
-                    I create ML models using <strong>Python</strong>,{" "}
-                    <strong>scikit-learn</strong>, and{" "}
-                    <strong>TensorFlow</strong>. Interested in data-driven
-                    solutions and real-world predictions.
-                  </>
-                ),
-              },
-            ].map((card, idx) => (
+            {(user.aboutCards && user.aboutCards.length > 0
+              ? user.aboutCards
+              : []
+            ).map((card, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 10 }}
@@ -223,11 +198,20 @@ export const AboutSection = () => {
               >
                 <div className="flex items-start gap-4">
                   <div className="p-3 rounded-full bg-primary/10">
-                    {card.icon}
+                    {(() => {
+                      const iconMap = { User, Code, Briefcase };
+                      const IconComp = iconMap[card.icon] || User;
+                      return <IconComp className="w-6 h-6 text-primary" />;
+                    })()}
                   </div>
                   <div>
                     <h4 className="text-xl font-semibold">{card.title}</h4>
-                    <p className="mt-2 text-muted-foreground">{card.desc}</p>
+                    <p
+                      className="mt-2 text-muted-foreground"
+                      dangerouslySetInnerHTML={{
+                        __html: renderBold(card.description || ""),
+                      }}
+                    />
                   </div>
                 </div>
               </motion.div>

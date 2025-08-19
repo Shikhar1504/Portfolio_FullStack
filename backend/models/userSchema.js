@@ -87,6 +87,17 @@ const userSchema = new mongoose.Schema({
   codechefURL: {
     type: String,
   },
+  aboutCards: [
+    {
+      title: { type: String },
+      description: { type: String },
+      icon: {
+        type: String,
+        enum: ["User", "Code", "Briefcase"],
+        default: "User",
+      },
+    },
+  ],
   resetPasswordToken: String,
   resetPasswordExpire: Date,
 });

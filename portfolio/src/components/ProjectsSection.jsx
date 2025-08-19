@@ -13,7 +13,8 @@ export const ProjectsSection = () => {
         "https://portfolio-backend-gs79.onrender.com/api/v1/project/getall",
         { withCredentials: true }
       );
-      setProjects(data.projects);
+      //   setProjects(data.projects);
+      setProjects([...data.projects].reverse());
     };
     getMyProjects();
   }, []);
@@ -34,7 +35,7 @@ export const ProjectsSection = () => {
     getMyProfile();
   }, []);
 
-  const displayedProjects = viewAll ? projects : projects.slice(0, 3);
+  const displayedProjects = viewAll ? projects : projects.slice(0, 6);
 
   const sectionRef = useRef(null);
 

@@ -27,6 +27,15 @@ const UpdateProfile = () => {
   );
 
   const [aboutMe, setAboutMe] = useState(user && user.aboutMe);
+  const [aboutCards, setAboutCards] = useState(
+    user && Array.isArray(user.aboutCards) && user.aboutCards.length > 0
+      ? user.aboutCards.slice(0, 3)
+      : [
+          { title: "", description: "", icon: "User" },
+          { title: "", description: "", icon: "User" },
+          { title: "", description: "", icon: "User" },
+        ]
+  );
   const [portfolioURL, setPortfolioURL] = useState(user && user.portfolioURL);
   const [linkedInURL, setLinkedInURL] = useState(
     user && (user.linkedInURL === "undefined" ? "" : user.linkedInURL)
@@ -87,6 +96,7 @@ const UpdateProfile = () => {
     formData.append("location", location);
     formData.append("skills", skills);
     formData.append("aboutMe", aboutMe);
+    formData.append("aboutCards", JSON.stringify(aboutCards));
     formData.append("portfolioURL", portfolioURL);
     formData.append("linkedInURL", linkedInURL);
     formData.append("githubURL", githubURL);
@@ -212,6 +222,62 @@ const UpdateProfile = () => {
                   value={aboutMe}
                   onChange={(e) => setAboutMe(e.target.value)}
                 />
+              </div>
+
+              <div className="grid gap-4">
+                <h2 className="text-2xl font-semibold">About Cards</h2>
+                {[0, 1, 2].map((idx) => (
+                  <div key={idx} className="grid gap-3 p-4 border rounded-md">
+                    <div className="grid gap-2">
+                      <Label>Card {idx + 1} Title</Label>
+                      <Input
+                        type="text"
+                        value={aboutCards[idx]?.title || ""}
+                        onChange={(e) => {
+                          const updated = [...aboutCards];
+                          updated[idx] = {
+                            ...(updated[idx] || {}),
+                            title: e.target.value,
+                          };
+                          setAboutCards(updated);
+                        }}
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label>Card {idx + 1} Description</Label>
+                      <Textarea
+                        value={aboutCards[idx]?.description || ""}
+                        onChange={(e) => {
+                          const updated = [...aboutCards];
+                          updated[idx] = {
+                            ...(updated[idx] || {}),
+                            description: e.target.value,
+                          };
+                          setAboutCards(updated);
+                        }}
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label>Card {idx + 1} Icon</Label>
+                      <select
+                        className="px-3 py-1 text-sm border rounded-md shadow-sm h-9 border-input bg-background focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                        value={aboutCards[idx]?.icon || "User"}
+                        onChange={(e) => {
+                          const updated = [...aboutCards];
+                          updated[idx] = {
+                            ...(updated[idx] || {}),
+                            icon: e.target.value,
+                          };
+                          setAboutCards(updated);
+                        }}
+                      >
+                        <option value="User">User</option>
+                        <option value="Code">Code</option>
+                        <option value="Briefcase">Briefcase</option>
+                      </select>
+                    </div>
+                  </div>
+                ))}
               </div>
               <div className="grid gap-2">
                 <Label>Portfolio URL</Label>

@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -7,15 +6,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Link } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import {
   addNewProject,
   clearAllProjectErrors,
   getAllProjects,
   resetProjectSlice,
 } from "@/store/slices/projectSlice";
+import { Link } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import SpecialLoadingButton from "./SpecialLoadingButton";
 
 const AddProject = () => {
@@ -74,11 +74,11 @@ const AddProject = () => {
           className="w-[100%] px-5 md:w-[1000px]"
         >
           <div className="space-y-12">
-            <div className="border-b border-gray-900/10 pb-12">
-              <h2 className="font-semibold leading-7 text-gray-900 text-3xl">
+            <div className="pb-12 border-b border-gray-900/10">
+              <h2 className="text-3xl font-semibold leading-7 text-gray-900">
                 ADD NEW PROJECT
               </h2>
-              <div className="mt-10 flex flex-col gap-5">
+              <div className="flex flex-col gap-5 mt-10">
                 <div className="w-full sm:col-span-4">
                   <label className="block text-sm font-medium leading-6 text-gray-900">
                     Project Title
@@ -129,23 +129,13 @@ const AddProject = () => {
                   </label>
                   <div className="mt-2">
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                      <Select
+                      <input
+                        type="text"
+                        className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                        placeholder="Project Stack"
                         value={stack}
-                        onValueChange={(selectedValue) =>
-                          setStack(selectedValue)
-                        }
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select Project Stack" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Full Stack">Full Stack</SelectItem>
-                          <SelectItem value="Mern">MERN</SelectItem>
-                          <SelectItem value="Mean">MEAN</SelectItem>
-                          <SelectItem value="Next.JS">NEXT.JS</SelectItem>
-                          <SelectItem value="React.JS">REACT.JS</SelectItem>
-                        </SelectContent>
-                      </Select>
+                        onChange={(e) => setStack(e.target.value)}
+                      />
                     </div>
                   </div>
                 </div>
@@ -215,7 +205,7 @@ const AddProject = () => {
                   >
                     Project Banner
                   </label>
-                  <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                  <div className="flex justify-center px-6 py-10 mt-2 border border-dashed rounded-lg border-gray-900/25">
                     <div className="text-center">
                       {projectBannerPreview ? (
                         <img
@@ -227,7 +217,7 @@ const AddProject = () => {
                         />
                       ) : (
                         <svg
-                          className="mx-auto h-12 w-12 text-gray-300"
+                          className="w-12 h-12 mx-auto text-gray-300"
                           viewBox="0 0 24 24"
                           fill="currentColor"
                           aria-hidden="true"
@@ -240,10 +230,10 @@ const AddProject = () => {
                         </svg>
                       )}
 
-                      <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                      <div className="flex mt-4 text-sm leading-6 text-gray-600">
                         <label
                           htmlFor="file-upload"
-                          className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                          className="relative font-semibold text-indigo-600 bg-white rounded-md cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                         >
                           <span>Upload a file</span>
                           <input
@@ -266,7 +256,7 @@ const AddProject = () => {
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-end gap-x-6">
+          <div className="flex items-center justify-end mt-6 gap-x-6">
             {loading ? (
               <SpecialLoadingButton
                 content={"ADDING NEW PROJECT"}
@@ -275,7 +265,7 @@ const AddProject = () => {
             ) : (
               <button
                 type="submit"
-                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-56"
+                className="w-56 px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Add Project
               </button>

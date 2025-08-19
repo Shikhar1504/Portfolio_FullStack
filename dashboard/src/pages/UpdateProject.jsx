@@ -114,16 +114,16 @@ const UpdateProject = () => {
           className="w-[100%] px-5 md:w-[1000px] pb-5"
         >
           <div className="space-y-12">
-            <div className="border-b border-gray-900/10 pb-12">
-              <div className="flex flex-col gap-2 items-start justify-between sm:items-center sm:flex-row">
-                <h2 className="font-semibold leading-7 text-gray-900 text-3xl">
+            <div className="pb-12 border-b border-gray-900/10">
+              <div className="flex flex-col items-start justify-between gap-2 sm:items-center sm:flex-row">
+                <h2 className="text-3xl font-semibold leading-7 text-gray-900">
                   UPDATE PROJECT
                 </h2>
                 <Button onClick={handleReturnToDashboard}>
                   Return to Dashboard
                 </Button>
               </div>
-              <div className="mt-10 flex flex-col gap-5">
+              <div className="flex flex-col gap-5 mt-10">
                 <div className="w-full sm:col-span-4">
                   <img
                     src={
@@ -138,7 +138,7 @@ const UpdateProject = () => {
                     <input
                       type="file"
                       onChange={handleProjectBanner}
-                      className="avatar-update-btn mt-4 w-full"
+                      className="w-full mt-4 avatar-update-btn"
                     />
                   </div>
                 </div>
@@ -192,23 +192,13 @@ const UpdateProject = () => {
                   </label>
                   <div className="mt-2">
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                      <Select
+                      <input
+                        type="text"
+                        className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                        placeholder="Project Stack"
                         value={stack}
-                        onValueChange={(selectedValue) =>
-                          setStack(selectedValue)
-                        }
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select Project Stack" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Full Stack">Full Stack</SelectItem>
-                          <SelectItem value="Mern">MERN</SelectItem>
-                          <SelectItem value="Mean">MEAN</SelectItem>
-                          <SelectItem value="Next.JS">NEXT.JS</SelectItem>
-                          <SelectItem value="React.JS">REACT.JS</SelectItem>
-                        </SelectContent>
-                      </Select>
+                        onChange={(e) => setStack(e.target.value)}
+                      />
                     </div>
                   </div>
                 </div>
@@ -274,13 +264,13 @@ const UpdateProject = () => {
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-end gap-x-6">
+          <div className="flex items-center justify-end mt-6 gap-x-6">
             {loading ? (
               <SpecialLoadingButton content={"Updating"} width={"w-52"} />
             ) : (
               <button
                 type="submit"
-                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-52"
+                className="px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-52"
               >
                 Update
               </button>

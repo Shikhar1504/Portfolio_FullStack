@@ -119,12 +119,15 @@ export const addNewSkill = (data) => async (dispatch) => {
   }
 };
 
-export const updateSkill = (id, proficiency) => async (dispatch) => {
+export const updateSkill = (id, proficiency, type = null) => async (dispatch) => {
   dispatch(skillSlice.actions.updateSkillRequest());
   try {
+    const updateData = { proficiency };
+    if (type) updateData.type = type;
+    
     const response = await axios.put(
       `https://portfolio-backend-gs79.onrender.com/api/v1/skill/update/${id}`,
-      { proficiency },
+      updateData,
       {
         withCredentials: true,
         headers: { "Content-Type": "application/json" },

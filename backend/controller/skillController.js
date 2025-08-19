@@ -8,7 +8,7 @@ export const addNewSkill = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Image For Skill Required!", 404));
   }
   const { svg } = req.files;
-  const { title, proficiency } = req.body;
+  const { title, proficiency, type } = req.body;
   if (!title || !proficiency) {
     return next(new ErrorHandler("Please Fill Full Form!", 400));
   }
@@ -26,6 +26,7 @@ export const addNewSkill = catchAsyncErrors(async (req, res, next) => {
   const skill = await Skill.create({
     title,
     proficiency,
+    type,
     svg: {
       public_id: cloudinaryResponse.public_id, // Set your cloudinary public_id here
       url: cloudinaryResponse.secure_url, // Set your cloudinary secure_url here
@@ -57,10 +58,13 @@ export const updateSkill = catchAsyncErrors(async (req, res, next) => {
   if (!skill) {
     return next(new ErrorHandler("Skill not found!", 404));
   }
-  const { proficiency } = req.body;
+  const { proficiency, type } = req.body;
+  const updateData = { proficiency };
+  if (type) updateData.type = type;
+  
   skill = await Skill.findByIdAndUpdate(
     id,
-    { proficiency },
+    updateData,
     {
       new: true,
       runValidators: true,
