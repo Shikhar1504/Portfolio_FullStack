@@ -54,4 +54,4 @@ root/
 
 ---
 
-\_Built with ❤️ and the MERN stack.
+Built with ❤️ and the MERN stack.
