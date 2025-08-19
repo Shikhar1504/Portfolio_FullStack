@@ -22,15 +22,18 @@ root/
 ## 🚀 Tech Stack
 
 **Frontend:**
+
 - React (with Vite for fast builds)
 - Tailwind CSS (utility-first styling)
 - Lucide Icons & Radix UI (UI/UX enhancements)
 
 **Backend:**
+
 - Node.js & Express.js (REST API)
 - MongoDB & Mongoose (database & ODM)
 
 **Other:**
+
 - JWT authentication (for admin dashboard)
 - Responsive design (mobile-first)
 - Deployed with Vercel/Netlify (frontend) and Heroku/Render (backend)
@@ -51,4 +54,4 @@ root/
 
 ---
 
-_Built with ❤️ and the MERN stack._
+\_Built with ❤️ and the MERN stack.
